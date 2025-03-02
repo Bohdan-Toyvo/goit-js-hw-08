@@ -72,14 +72,16 @@ gallery.insertAdjacentHTML("beforeend", createGalleryMarkup(images));
 function createGalleryMarkup(galleryCards) {
   return galleryCards
     .map(({ original, preview, description }) => {
-      return `<a class="gallery-link" href="${original}">
-      <img
-        class="gallery-image"
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
-      />
-    </a>`;
+      return `<li class="gallery-item">
+        <a class="gallery-link" href="${original}">
+          <img
+            class="gallery-image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+          />
+        </a>
+      </li>`;
     })
     .join("");
 }
@@ -92,9 +94,11 @@ gallery.addEventListener("click", function (event) {
 
     console.log(largeImageURL);
 
-    const instance = basicLightbox.create(
-      ` <div class="modal"><img src="${largeImageURL}" alt="${description}" /></div>`
-    );
+    const instance = basicLightbox.create(`
+      <div class="modal">
+        <img src="${largeImageURL}" alt="${description}" />
+      </div>
+    `);
 
     instance.show();
   }
